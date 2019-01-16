@@ -54,10 +54,14 @@ function getRandomInt(min, max) {
 }
 
 function compareNumbers() {
-    if (currentPoints > pointsToWin) {
+
+    if (currentPoints === 0 && pointsToWin === 0) {
+        resetGame()
+    }
+    else if (currentPoints > pointsToWin) {
         losses++;
         $(".losses").html("Losses: " + losses)
-        resetGame()
+        resetGame();
     }
     else if (currentPoints === pointsToWin) {
         wins++;
@@ -65,6 +69,7 @@ function compareNumbers() {
         resetGame()
 
     }
+
 }
 //-----------------------------------------CLICK EVENTS-------------------------------------------------------//
 
