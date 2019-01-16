@@ -7,7 +7,7 @@ var pointsToWin = 0,
     blueNumber = 0,
     redNumber = 0,
     greenNumber = 0,
-    mysteryNumber =0;
+    mysteryNumber = 0;
 
 //-----------------------------------------RENDER GAME ELEMENTS-------------------------------------------------------//
 $(".gameWindow").append(
