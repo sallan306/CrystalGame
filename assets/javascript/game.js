@@ -14,7 +14,7 @@ $(".gameWindow").append(
     `
         <div class="buttonBox">
             <button class="startButton">New Game</button>
-            <button class="resetButton">Reset</button>
+            <button class="resetButton">Reset Everything</button>
         </div>
         <div class="scoreBox">
             <div class="wins">Wins: 0</div>
@@ -35,74 +35,82 @@ $(".gameWindow").append(
 
 //-----------------------------------------FUNCTIONS-------------------------------------------------------//
 
-function resetGame() {
+var newGame = () => { 
     pointsToWin = getRandomInt(30, 100)
     blueNumber = getRandomInt(2, 5)
     redNumber = getRandomInt(6, 8)
     greenNumber = getRandomInt(9, 11)
     mysteryNumber = getRandomInt(12, 15)
     currentPoints = 0;
-    $(".points").html("Current Points: " + currentPoints)
-    $(".pointsToWin").html("Points To Win: " + pointsToWin)
+    updateScreen()
 }
 
-function getRandomInt(min, max) {
+var getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 
 }
 
-function compareNumbers() {
-
+var compareNumbers = () => {
     if (currentPoints === 0 && pointsToWin === 0) {
-        resetGame()
+        newGame()
     }
     else if (currentPoints > pointsToWin) {
         losses++;
-        $(".losses").html("Losses: " + losses)
-        resetGame();
+        updateScreen()
+        newGame();
     }
     else if (currentPoints === pointsToWin) {
         wins++;
-        $(".wins").html("Wins: " + wins)
-        resetGame()
-
+        updateScreen()
+        newGame()
     }
 
 }
+var updateScreen = () => {
+    $(".wins").html("Wins: " + wins)
+    $(".losses").html("Losses: " + losses)
+    $(".points").html("Current Points: " + currentPoints)
+    $(".points").html("Current Points: " + currentPoints)
+    $(".pointsToWin").html("Points To Win: " + pointsToWin)
+}
+var fullReset = () => {
+    wins = 0;
+    losses = 0;
+    newGame()
+}
+
+
 //-----------------------------------------CLICK EVENTS-------------------------------------------------------//
 
 $(".startButton").on("click", function(){
-    resetGame()
+    newGame()
 })
+
 $(".resetButton").on("click", function(){
-    resetGame()
-    wins = 0;
-    losses = 0;
-    $(".losses").html("Losses: " + losses)
-    $(".wins").html("Wins: " + wins)
+    fullReset()
 })
 
 $("#blueCrystal").on("click", function() {
     currentPoints += blueNumber
-    $(".points").html("Current Points: " + currentPoints)
+    updateScreen()
     compareNumbers()
 })
 
 $("#redCrystal").on("click", function() {
     currentPoints += redNumber
-    $(".points").html("Current Points: " + currentPoints)
+    updateScreen()
     compareNumbers()
 })
 $("#greenCrystal").on("click", function() {
     currentPoints += greenNumber
-    $(".points").html("Current Points: " + currentPoints)
+    updateScreen()
     compareNumbers()
 })
 $("#mysteryCrystal").on("click", function() {
     currentPoints += mysteryNumber
-    $(".points").html("Current Points: " + currentPoints)
+    updateScreen()
     compareNumbers()
 
 })
